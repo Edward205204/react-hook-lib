@@ -1,4 +1,4 @@
-name: Auto Bump + Publish
+name: Auto Publish
 
 on:
   push:
@@ -24,17 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # - name: Auto bump patch version
-      #   run: |
-      #     node -e "
-      #       const fs = require('fs');
-      #       const pkg = JSON.parse(fs.readFileSync('package.json'));
-      #       const [major, minor, patch] = pkg.version.split('.').map(Number);
-      #       pkg.version = [major, minor, patch + 1].join('.');
-      #       fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-      #       console.log('🔼 Bumped version to', pkg.version);
-      #     "
-
       - name: Build
         run: npm run build
 
@@ -43,7 +32,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Push updated package.json (new version)
+      - name: Push updated package.json (if any)
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
@@ -51,5 +40,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
           git add package.json
-          git commit -m "chore: bump version [skip ci]"
+          git diff --cached --quiet || git commit -m "chore: update package.json [skip ci]"
           git push origin main
