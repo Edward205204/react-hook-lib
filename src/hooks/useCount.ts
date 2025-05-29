@@ -7,5 +7,6 @@ export function useCount() {
     setCount,
     increment: () => setCount(count + 1),
     decrement: () => setCount(count - 1),
+    reset: () => setCount(0),
   };
 }
