@@ -33,14 +33,6 @@ jobs:
             console.log('🔼 Bumped version to', pkg.version);
           "
 
-      - name: Build
-        run: npm run build
-
-      - name: Publish to NPM
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Push updated package.json (new version)
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -51,3 +43,11 @@ jobs:
           git add package.json
           git commit -m "chore: bump version [skip ci]"
           git push origin main
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
