@@ -24,16 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Auto bump patch version
-        run: |
-          node -e "
-            const fs = require('fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json'));
-            const [major, minor, patch] = pkg.version.split('.').map(Number);
-            pkg.version = [major, minor, patch + 1].join('.');
-            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-            console.log('🔼 Bumped version to', pkg.version);
-          "
+      # - name: Auto bump patch version
+      #   run: |
+      #     node -e "
+      #       const fs = require('fs');
+      #       const pkg = JSON.parse(fs.readFileSync('package.json'));
+      #       const [major, minor, patch] = pkg.version.split('.').map(Number);
+      #       pkg.version = [major, minor, patch + 1].join('.');
+      #       fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+      #       console.log('🔼 Bumped version to', pkg.version);
+      #     "
 
       - name: Build
         run: npm run build
