@@ -1,6 +1,6 @@
 {
   "name": "my-react-hook-lib",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A custom React hook library",
   "private": false,
   "main": "./dist/index.cjs.js",
@@ -24,9 +24,7 @@
   },
   "peerDependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "optionalDependencies": {
+    "react-dom": "^19.1.0",
     "react-router": "^7.6.1"
   },
   "devDependencies": {
